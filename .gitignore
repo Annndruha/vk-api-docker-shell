@@ -1,0 +1,13 @@
+.vs*
+.vs/
+.git/
+.idea
+__pycache__/
+config.py
+config/config.py
+config/4config.py
+config/mconfig.py
+core/config.py
+func/config.py
+temp.png
+venv
