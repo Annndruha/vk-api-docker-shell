@@ -11,3 +11,4 @@ core/config.py
 func/config.py
 temp.png
 venv
+secret
