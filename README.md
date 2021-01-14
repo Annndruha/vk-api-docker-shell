@@ -1,4 +1,4 @@
-# Followers bot
+# vk-api-docker-shell
 
 ### System
 
