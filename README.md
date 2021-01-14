@@ -1,30 +1,33 @@
 # vk-api-docker-shell
 
+Оболочка для упрощённого доступа к методам vk-api и возможности развертывания скрипта в докере.
+Зачем? Чтобы в пару строк и пару кликов появился контейнер с полезной нагрузкой и работющий без отказов.
+
 ### System
 
+Python 3.7.9
+
 Tested on Windows 10 and Ubuntu 18|16
-Python 3.7
 
 ### Third Party Libraries and Dependencies
 
-The  libraries  from requirements.txt must be installed when using sessiyabot.
+The  libraries from requirements.txt must be installed.
+
+For easy windows install just run `create_venv.bat`
 
 ### Docker
+1. Build docker container
 
-If you use  docker, you can run bot with this example docker command:
+2. Push&Pull to your host machine
+
+3. Run it:
 
 ```bash
-docker run -d --name followersbot imagename
+docker run -d --name vkshell --restart always -v /root/vkshell/secret/config.json:/vkshell/secret/config.json imagename
 ```
 
-Or this, if you want to keep config data in secret:
+4. See logs:
 
 ```bash
-docker run -d --name followersbot --restart always -v /root/followersbot/configvolume.py:/followersbot/data/config.py imagename
-```
-
-See logs:
-
-```bash
-docker logs followersbot -follow
+docker logs vkshell -follow
 ```
