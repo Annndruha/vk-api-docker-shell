@@ -18,11 +18,3 @@ EXPOSE 4242
 
 # Run the file
 CMD ["python", "-u", "./main.py"]
-
-# Example docker Ubuntu command:
-#docker run -d --name PROJECT_NAME -v /root/PROJECT_NAME/configvolume.py:/PROJECT_NAME/data/config.py imagename
-
-#docker run -d --name followersbot --restart always -v /root/followersbot/configvolume.py:/followersbot/data/config.py imagename
-
-# Logs:
-# docker logs followersbot --follow
