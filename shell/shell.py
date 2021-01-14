@@ -15,37 +15,48 @@ def timestamp():
 
 
 class Shell(threading.Thread):
-    def __init__(self, target=None, config=None, config_path=None):
+    def __init__(self, target=None, config=None, config_path=None, auth_type=None, one_run=True):
         super().__init__()
         self.target = target
         self.config = config
         self.config_path = config_path
         self.vk = None
+        self.auth_type = auth_type
+        self.one_run = one_run
 
     def run(self) -> None:
         print("=============== VK-API SHELL STARTING ===============")
-        self.auth()
-        while True:
-            try:
-                self.target(self)
-
-            except OSError:
+        if self.auth_type == "group":
+            self.auth_group()
+        elif self.auth_type == "user":
+            self.auth()
+        if self.one_run:
+            self.target(self)
+        else:
+            while True:
                 try:
-                    print(f"---{timestamp()} Try to reconnect VK...")
-                    self.auth()
-                    print(f"---{timestamp()} VK connected successful")
-                    time.sleep(1)
+                    self.target(self)
+
+                except OSError:
+                    try:
+                        print(f"---{timestamp()} Try to reconnect VK...")
+                        if self.auth_type == "group":
+                            self.auth_group()
+                        elif self.auth_type == "user":
+                            self.auth()
+                        print(f"---{timestamp()} VK connected successful")
+                        time.sleep(1)
+                    except Exception as err:
+                        print(f"---{timestamp()} Exception, description:")
+                        print(err)
+                        traceback.print_tb(err.__traceback__)
+                        time.sleep(10)
                 except Exception as err:
                     print(f"---{timestamp()} Exception, description:")
                     print(err)
                     traceback.print_tb(err.__traceback__)
-                    time.sleep(10)
-            except Exception as err:
-                print(f"---{timestamp()} Exception, description:")
-                print(err)
-                traceback.print_tb(err.__traceback__)
-                time.sleep(60)
-            print(f"==={timestamp()} VK-API SHELL RESTART")
+                    time.sleep(60)
+                print(f"==={timestamp()} VK-API SHELL RESTART")
 
     def load_tokens(self):
         if self.config is None and self.config_path is None:
@@ -54,6 +65,12 @@ class Shell(threading.Thread):
             with open(self.config_path) as f:
                 self.config = json.load(f)
 
-    def auth(self):
+    def auth_group(self):
         self.load_tokens()
         self.vk = vk_api.VkApi(token=self.config["access_token"])
+        self.vk.auth()
+
+    def auth(self):
+        self.load_tokens()
+        self.vk = vk_api.VkApi(self.config["login"], self.config["password"])
+        self.vk.auth()
