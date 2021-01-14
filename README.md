@@ -37,18 +37,20 @@ The  libraries from requirements.txt must be installed.
 For easy windows install just run `create_venv.bat`
 
 ### Docker
-1. Build docker container
+1. Change PROJECT_NAME for your poject name in dockerfile
 
-2. Push&Pull to your host machine
+2. Build docker container
 
-3. Run it:
+3. Push&Pull to your host machine. Copy IMAGENAME
+
+4. Run it:
 
 ```bash
-docker run -d --name vkshell --restart always -v /root/vkshell/secret/config.json:/vkshell/secret/config.json imagename
+docker run -d --name PROJECT_NAME --restart always -v /root/PROJECT_NAME/secret/config.json:/PROJECT_NAME/secret/config.json IMAGENAME
 ```
 
-4. See logs:
+5. See logs:
 
 ```bash
-docker logs vkshell -follow
+docker logs PROJECT_NAME -follow
 ```
