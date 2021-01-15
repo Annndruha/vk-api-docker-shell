@@ -25,7 +25,6 @@ class Shell(threading.Thread):
         self.one_run = one_run
 
     def run(self) -> None:
-        print("=============== VK-API SHELL STARTING ===============")
         if self.auth_type == "group":
             self.auth_group()
         elif self.auth_type == "user":
