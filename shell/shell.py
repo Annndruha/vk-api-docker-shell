@@ -67,7 +67,7 @@ class Shell(threading.Thread):
     def auth_group(self):
         self.load_tokens()
         self.vk = vk_api.VkApi(token=self.config["access_token"])
-        self.vk.auth()
+        self.vk.auth(reauth=True, token_only=True)
 
     def auth(self):
         self.load_tokens()
