@@ -14,3 +14,4 @@ venv
 secret
 secret/config.json
 vk_config.v2.json
+photos*
